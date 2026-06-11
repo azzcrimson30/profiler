@@ -33,11 +33,11 @@
                 <div class="form-group">
                     <div class="form-check">
                         <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="remember" style="font-weight:400;font-size:0.875rem;">Remember me</label>
+                        <label for="remember" class="label-normal">Remember me</label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </form>
 
             <div class="auth-footer">

@@ -3,7 +3,7 @@
 @section('title', 'Manage Users - Admin')
 
 @section('content')
-<div class="page-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+<div class="page-header flex-between-wrap">
     <div>
         <h1>User Management</h1>
         <p>Manage all registered users</p>
@@ -19,7 +19,7 @@
     @endif
 </form>
 
-<div class="card" style="padding:0;overflow-x:auto;">
+<div class="card card--no-pad">
     <table class="table">
         <thead>
             <tr>
@@ -51,7 +51,7 @@
                         <div class="actions">
                             <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-secondary btn-sm">Edit</a>
                             @if($user->id !== auth()->id())
-                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline">
+                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Are you sure you want to delete this user?');" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -62,7 +62,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted);">No users found.</td>
+                    <td colspan="7" class="empty-table-cell">No users found.</td>
                 </tr>
             @endforelse
         </tbody>

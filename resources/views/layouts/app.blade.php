@@ -20,7 +20,7 @@
                     <li><a href="{{ route('admin.users.index') }}">Admin</a></li>
                 @endif
                 <li>
-                    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>

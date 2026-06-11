@@ -34,11 +34,11 @@
         </div>
         <div class="stat-icon green">👤</div>
     </div>
-    <a href="{{ route('profiles.index') }}" class="stat-card" style="text-decoration:none;color:inherit;">
+    <a href="{{ route('profiles.index') }}" class="stat-card text-decoration-none" style="color:inherit;">
         <div class="stat-card-info">
             <h3>My Profiles</h3>
             <div class="stat-value">{{ $stats['my_profiles'] }}</div>
-            <div class="stat-change" style="color:var(--primary);">Click to manage →</div>
+            <div class="stat-change text-primary">Click to manage →</div>
         </div>
         <div class="stat-icon green">📋</div>
     </a>
@@ -51,35 +51,14 @@
     </div>
     <div class="quick-actions">
         @if(auth()->user()->isAdmin())
-        <a href="{{ route('admin.users.create') }}" class="quick-action">
-            <div class="quick-action-icon">➕</div>
-            <span>Add User</span>
-        </a>
-        <a href="{{ route('admin.users.index') }}" class="quick-action">
-            <div class="quick-action-icon">👥</div>
-            <span>Manage Users</span>
-        </a>
+        <a href="{{ route('admin.users.create') }}" class="quick-action"><div class="quick-action-icon">➕</div><span>Add User</span></a>
+        <a href="{{ route('admin.users.index') }}" class="quick-action"><div class="quick-action-icon">👥</div><span>Manage Users</span></a>
         @endif
-        <a href="{{ route('profiles.index') }}" class="quick-action">
-            <div class="quick-action-icon">📋</div>
-            <span>My Profiles</span>
-        </a>
-        <a href="{{ route('profiles.create') }}" class="quick-action">
-            <div class="quick-action-icon">➕</div>
-            <span>New Profile</span>
-        </a>
-        <a href="#" class="quick-action" style="opacity:0.5;pointer-events:none;">
-            <div class="quick-action-icon">�</div>
-            <span>Module A</span>
-        </a>
-        <a href="#" class="quick-action" style="opacity:0.5;pointer-events:none;">
-            <div class="quick-action-icon">📄</div>
-            <span>Module B</span>
-        </a>
-        <a href="#" class="quick-action" style="opacity:0.5;pointer-events:none;">
-            <div class="quick-action-icon">�📈</div>
-            <span>Module C</span>
-        </a>
+        <a href="{{ route('profiles.index') }}" class="quick-action"><div class="quick-action-icon">📋</div><span>My Profiles</span></a>
+        <a href="{{ route('profiles.create') }}" class="quick-action"><div class="quick-action-icon">➕</div><span>New Profile</span></a>
+        <a href="#" class="quick-action opacity-50 pointer-events-none"><div class="quick-action-icon">📋</div><span>Module A</span></a>
+        <a href="#" class="quick-action opacity-50 pointer-events-none"><div class="quick-action-icon">📄</div><span>Module B</span></a>
+        <a href="#" class="quick-action opacity-50 pointer-events-none"><div class="quick-action-icon">📈</div><span>Module C</span></a>
     </div>
 </div>
 
@@ -93,14 +72,7 @@
             @endif
         </div>
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Joined</th>
-                </tr>
-            </thead>
+            <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Joined</th></tr></thead>
             <tbody>
                 @forelse($stats['recent_users'] as $user)
                     <tr>
@@ -116,92 +88,62 @@
                         <td>{{ $user->created_at->format('M d, Y') }}</td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="4" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No users yet.</td>
-                    </tr>
+                    <tr><td colspan="4" class="text-center text-muted p-1.5">No users yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="card">
-        <div class="card-header">
-            <h2>Recent Activity</h2>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:1rem;">
-            <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--success);margin-top:6px;flex-shrink:0;"></div>
-                <div>
-                    <div style="font-size:0.875rem;font-weight:500;">System initialized</div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);">Just now</div>
-                </div>
+        <div class="card-header"><h2>Recent Activity</h2></div>
+        <div class="d-flex flex-column gap-1">
+            <div class="d-flex align-start gap-0.75">
+                <div class="activity-dot activity-dot-success mt-0.35"></div>
+                <div><div class="text-sm font-semibold">System initialized</div><div class="text-xs text-muted">Just now</div></div>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--primary);margin-top:6px;flex-shrink:0;"></div>
-                <div>
-                    <div style="font-size:0.875rem;font-weight:500;">Database migrations completed</div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);">Just now</div>
-                </div>
+            <div class="d-flex align-start gap-0.75">
+                <div class="activity-dot activity-dot-primary mt-0.35"></div>
+                <div><div class="text-sm font-semibold">Database migrations completed</div><div class="text-xs text-muted">Just now</div></div>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--info);margin-top:6px;flex-shrink:0;"></div>
-                <div>
-                    <div style="font-size:0.875rem;font-weight:500;">Admin user created</div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);">Just now</div>
-                </div>
+            <div class="d-flex align-start gap-0.75">
+                <div class="activity-dot activity-dot-info mt-0.35"></div>
+                <div><div class="text-sm font-semibold">Admin user created</div><div class="text-xs text-muted">Just now</div></div>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--warning);margin-top:6px;flex-shrink:0;"></div>
-                <div>
-                    <div style="font-size:0.875rem;font-weight:500;">Security headers configured</div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);">Just now</div>
-                </div>
+            <div class="d-flex align-start gap-0.75">
+                <div class="activity-dot activity-dot-warning mt-0.35"></div>
+                <div><div class="text-sm font-semibold">Security headers configured</div><div class="text-xs text-muted">Just now</div></div>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:0.75rem;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--success);margin-top:6px;flex-shrink:0;"></div>
-                <div>
-                    <div style="font-size:0.875rem;font-weight:500;">Authentication module active</div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);">Just now</div>
-                </div>
+            <div class="d-flex align-start gap-0.75">
+                <div class="activity-dot activity-dot-success mt-0.35"></div>
+                <div><div class="text-sm font-semibold">Authentication module active</div><div class="text-xs text-muted">Just now</div></div>
             </div>
         </div>
     </div>
 </div>
 
-{{-- Dummy Charts Section --}}
+{{-- System Overview --}}
 <div class="card">
-    <div class="card-header">
-        <h2>System Overview</h2>
-        <span class="badge badge-info">Live</span>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
-        <div style="text-align:center;padding:1.5rem;">
-            <div style="font-size:2.5rem;font-weight:700;color:var(--primary);">99.9%</div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">Uptime</div>
-            <div style="height:4px;background:var(--border);border-radius:2px;margin-top:0.75rem;overflow:hidden;">
-                <div style="height:100%;width:99.9%;background:var(--primary);border-radius:2px;"></div>
-            </div>
+    <div class="card-header"><h2>System Overview</h2><span class="badge badge-info">Live</span></div>
+    <div class="d-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+        <div class="text-center p-1.5">
+            <div class="text-2xl font-bold text-primary">99.9%</div>
+            <div class="text-sm text-muted mt-0.25">Uptime</div>
+            <div class="mt-0.75 rounded" style="height:4px;background:var(--border);overflow:hidden;"><div style="height:100%;width:99.9%;background:var(--primary);border-radius:2px;"></div></div>
         </div>
-        <div style="text-align:center;padding:1.5rem;">
-            <div style="font-size:2.5rem;font-weight:700;color:var(--success);">45ms</div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">Avg Response Time</div>
-            <div style="height:4px;background:var(--border);border-radius:2px;margin-top:0.75rem;overflow:hidden;">
-                <div style="height:100%;width:15%;background:var(--success);border-radius:2px;"></div>
-            </div>
+        <div class="text-center p-1.5">
+            <div class="text-2xl font-bold text-success">45ms</div>
+            <div class="text-sm text-muted mt-0.25">Avg Response Time</div>
+            <div class="mt-0.75 rounded" style="height:4px;background:var(--border);overflow:hidden;"><div style="height:100%;width:15%;background:var(--success);border-radius:2px;"></div></div>
         </div>
-        <div style="text-align:center;padding:1.5rem;">
-            <div style="font-size:2.5rem;font-weight:700;color:var(--warning);">1.2GB</div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">Storage Used</div>
-            <div style="height:4px;background:var(--border);border-radius:2px;margin-top:0.75rem;overflow:hidden;">
-                <div style="height:100%;width:24%;background:var(--warning);border-radius:2px;"></div>
-            </div>
+        <div class="text-center p-1.5">
+            <div class="text-2xl font-bold" style="color:var(--warning);">1.2GB</div>
+            <div class="text-sm text-muted mt-0.25">Storage Used</div>
+            <div class="mt-0.75 rounded" style="height:4px;background:var(--border);overflow:hidden;"><div style="height:100%;width:24%;background:var(--warning);border-radius:2px;"></div></div>
         </div>
-        <div style="text-align:center;padding:1.5rem;">
-            <div style="font-size:2.5rem;font-weight:700;color:var(--info);">0</div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">Security Alerts</div>
-            <div style="height:4px;background:var(--border);border-radius:2px;margin-top:0.75rem;overflow:hidden;">
-                <div style="height:100%;width:0%;background:var(--info);border-radius:2px;"></div>
-            </div>
+        <div class="text-center p-1.5">
+            <div class="text-2xl font-bold text-info">0</div>
+            <div class="text-sm text-muted mt-0.25">Security Alerts</div>
+            <div class="mt-0.75 rounded" style="height:4px;background:var(--border);overflow:hidden;"><div style="height:100%;width:0%;background:var(--info);border-radius:2px;"></div></div>
         </div>
     </div>
 </div>

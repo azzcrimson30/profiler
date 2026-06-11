@@ -24,13 +24,13 @@
                     <li><a href="{{ route('admin.users.index') }}">Admin</a></li>
                 @endif
                 <li>
-                    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
-                        <a href="#" onclick="this.closest('form').submit(); return false;" style="color:var(--color-text-muted);">Logout</a>
+                        <a href="#" onclick="this.closest('form').submit(); return false;" class="link-muted">Logout</a>
                     </form>
                 </li>
             @else
-                <li><a href="{{ route('login') }}" class="btn btn-primary" style="padding:0.5rem 1.25rem;font-size:0.85rem;">Sign In</a></li>
+                <li><a href="{{ route('login') }}" class="btn btn-primary btn-compact">Sign In</a></li>
             @endauth
         </ul>
     </nav>

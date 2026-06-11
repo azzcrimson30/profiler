@@ -8,10 +8,10 @@
     <p>Update user information for <strong>{{ $user->name }}</strong></p>
 </div>
 
-<div class="card" style="max-width:600px;">
+<div class="card card--narrow">
     @if($errors->any())
         <div class="alert alert-danger">
-            <ul style="margin:0;padding-left:1.2rem;">
+            <ul class="list-reset">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Password <small style="color:var(--text-muted);font-weight:400;">(leave blank to keep current)</small></label>
+            <label for="password">Password <small class="small-muted">(leave blank to keep current)</small></label>
             <input type="password" id="password" name="password">
         </div>
 
@@ -58,7 +58,7 @@
             </select>
         </div>
 
-        <div style="display:flex;gap:0.75rem;">
+        <div class="d-flex gap-0.75">
             <button type="submit" class="btn btn-primary">Update User</button>
             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
         </div>

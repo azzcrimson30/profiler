@@ -13,7 +13,7 @@
 
             @if($errors->any())
                 <div class="alert alert-danger">
-                    <ul style="margin:0;padding-left:1.2rem;">
+                    <ul class="list-reset">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
-                    <small style="color:var(--text-muted);font-size:0.75rem;">Min 8 chars, mixed case, and at least one number.</small>
+                    <small class="small-muted">Min 8 chars, mixed case, and at least one number.</small>
                 </div>
 
                 <div class="form-group">
@@ -50,7 +50,7 @@
                     <input type="password" id="password_confirmation" name="password_confirmation" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
             </form>
 
             <div class="auth-footer">

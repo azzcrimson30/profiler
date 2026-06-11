@@ -29,7 +29,7 @@
                     <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width:100%;">Send Reset Link</button>
+                <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
             </form>
 
             <div class="auth-footer">

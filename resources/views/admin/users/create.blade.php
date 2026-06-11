@@ -8,10 +8,10 @@
     <p>Add a new user to the system</p>
 </div>
 
-<div class="card" style="max-width:600px;">
+<div class="card card--narrow">
     @if($errors->any())
         <div class="alert alert-danger">
-            <ul style="margin:0;padding-left:1.2rem;">
+            <ul class="list-reset">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -57,7 +57,7 @@
             </select>
         </div>
 
-        <div style="display:flex;gap:0.75rem;">
+        <div class="d-flex gap-0.75">
             <button type="submit" class="btn btn-primary">Create User</button>
             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
         </div>
