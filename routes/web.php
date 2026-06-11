@@ -39,6 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/profiles/{profile}', [ProfileController::class, 'update'])->name('profiles.update');
     Route::delete('/profiles/{profile}', [ProfileController::class, 'destroy'])->name('profiles.destroy');
     Route::get('/profiles/{profile}/resume', [ProfileController::class, 'resume'])->name('profiles.resume');
+
+    // File management
+    Route::get('/files/{category}', [\App\Http\Controllers\FileController::class, 'indexByCategory'])->name('files.index');
+    Route::get('/files', [\App\Http\Controllers\FileController::class, 'index'])->name('files.home');
+    Route::post('/files/{category}', [\App\Http\Controllers\FileController::class, 'upload'])->name('files.upload');
+    Route::get('/files/download/{file}', [\App\Http\Controllers\FileController::class, 'download'])->name('files.download');
+    Route::delete('/files/{file}', [\App\Http\Controllers\FileController::class, 'destroy'])->name('files.destroy');
 });
 
 /*

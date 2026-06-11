@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use Illuminate\Support\Facades\Storage;
+use App\Models\FileCategory;
+use App\Models\StoredFile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -41,9 +44,30 @@ class ProfileController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validateProfile($request);
-
         $validated['user_id'] = auth()->id();
         $validated = $this->processJsonFields($request, $validated);
+
+        // Handle avatar upload via file management (category: images)
+        if ($request->hasFile('avatar')) {
+            $category = FileCategory::firstOrCreate(['slug' => 'images'], ['name' => 'Images']);
+            $file = $request->file('avatar');
+            $userId = auth()->id();
+            $dir = $category->slug . '/' . $userId;
+            $filename = time() . '_' . preg_replace('/[^A-Za-z0-9_.-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs($dir, $filename, 'public');
+
+            $stored = StoredFile::create([
+                'file_category_id' => $category->id,
+                'user_id' => $userId,
+                'original_name' => $file->getClientOriginalName(),
+                'filename' => $filename,
+                'path' => $path,
+                'mime_type' => $file->getClientMimeType(),
+                'size' => $file->getSize(),
+            ]);
+
+            $validated['avatar'] = $path;
+        }
 
         Profile::create($validated);
 
@@ -79,6 +103,44 @@ class ProfileController extends Controller
 
         $validated = $this->validateProfile($request);
         $validated = $this->processJsonFields($request, $validated);
+
+        // Handle avatar removal
+        if ($request->boolean('avatar_remove')) {
+            if ($profile->avatar && Storage::disk('public')->exists($profile->avatar)) {
+                Storage::disk('public')->delete($profile->avatar);
+                // also remove stored_file record if exists
+                StoredFile::where('path', $profile->avatar)->delete();
+            }
+            $validated['avatar'] = null;
+        }
+
+        // Handle avatar upload via file management
+        if ($request->hasFile('avatar')) {
+            // delete old
+            if ($profile->avatar && Storage::disk('public')->exists($profile->avatar)) {
+                Storage::disk('public')->delete($profile->avatar);
+                StoredFile::where('path', $profile->avatar)->delete();
+            }
+
+            $category = FileCategory::firstOrCreate(['slug' => 'images'], ['name' => 'Images']);
+            $file = $request->file('avatar');
+            $userId = auth()->id();
+            $dir = $category->slug . '/' . $userId;
+            $filename = time() . '_' . preg_replace('/[^A-Za-z0-9_.-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs($dir, $filename, 'public');
+
+            $stored = StoredFile::create([
+                'file_category_id' => $category->id,
+                'user_id' => $userId,
+                'original_name' => $file->getClientOriginalName(),
+                'filename' => $filename,
+                'path' => $path,
+                'mime_type' => $file->getClientMimeType(),
+                'size' => $file->getSize(),
+            ]);
+
+            $validated['avatar'] = $path;
+        }
 
         $profile->update($validated);
 

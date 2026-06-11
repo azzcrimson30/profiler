@@ -18,7 +18,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('profiles.update', $profile) }}" id="profileForm">
+<form method="POST" action="{{ route('profiles.update', $profile) }}" id="profileForm" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -39,6 +39,17 @@
             <div class="form-group"><label for="zip_code">Zip Code</label><input type="text" id="zip_code" name="zip_code" class="form-input" value="{{ old('zip_code', $profile->zip_code) }}"></div>
         </div>
         <div class="form-group"><label for="country">Country</label><input type="text" id="country" name="country" class="form-input" value="{{ old('country', $profile->country) }}"></div>
+
+        <div class="form-group">
+            <label for="avatar">Photo</label>
+            @if($profile->avatar)
+                <div class="d-flex gap-0.5 align-center mb-0.5">
+                    <img src="{{ asset('storage/' . $profile->avatar) }}" alt="Profile photo" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">
+                    <label class="small-muted"><input type="checkbox" name="avatar_remove" value="1"> Remove photo</label>
+                </div>
+            @endif
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+        </div>
     </div>
 
     <div class="card">

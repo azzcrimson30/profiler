@@ -10,6 +10,9 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Models\FileCategory;
+use App\Models\StoredFile;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -62,9 +65,31 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'role_id' => ['required', 'exists:roles,id'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+
+        // handle avatar via file management
+        if ($request->hasFile('avatar')) {
+            $category = FileCategory::firstOrCreate(['slug' => 'images'], ['name' => 'Images']);
+            $file = $request->file('avatar');
+            $dir = $category->slug . '/' . $request->user()->id;
+            $filename = time() . '_' . preg_replace('/[^A-Za-z0-9_.-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs($dir, $filename, 'public');
+
+            $stored = StoredFile::create([
+                'file_category_id' => $category->id,
+                'user_id' => $request->user()->id,
+                'original_name' => $file->getClientOriginalName(),
+                'filename' => $filename,
+                'path' => $path,
+                'mime_type' => $file->getClientMimeType(),
+                'size' => $file->getSize(),
+            ]);
+
+            $validated['avatar'] = $path;
+        }
 
         User::create($validated);
 
@@ -92,6 +117,8 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'password' => ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'role_id' => ['required', 'exists:roles,id'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
+            'avatar_remove' => ['nullable', 'boolean'],
         ]);
 
         if (empty($validated['password'])) {
@@ -99,6 +126,17 @@ class UserController extends Controller
         } else {
             $validated['password'] = Hash::make($validated['password']);
         }
+
+        // handle avatar remove
+        if (!empty($validated['avatar_remove'])) {
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+                StoredFile::where('path', $user->avatar)->delete();
+            }
+            $validated['avatar'] = null;
+        }
+
+        // handle avatar upload (already handled above), if new file was uploaded, old one already deleted
 
         $user->update($validated);
 

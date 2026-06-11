@@ -37,6 +37,7 @@ class Profile extends Model
         'certifications',
         'languages',
         'references',
+        'avatar',
     ];
 
     protected function casts(): array

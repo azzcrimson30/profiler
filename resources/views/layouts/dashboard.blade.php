@@ -21,7 +21,11 @@
         </div>
         <div class="navbar-right">
             <div class="navbar-user">
-                <div class="navbar-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div>
+                @if(auth()->user()->avatar)
+                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="avatar" style="width:40px;height:40px;border-radius:8px;object-fit:cover;margin-right:0.5rem;">
+                @else
+                    <div class="navbar-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div>
+                @endif
                 <div class="navbar-user-info">
                     <div class="navbar-user-name">{{ auth()->user()->name }}</div>
                     <div class="navbar-user-role">{{ auth()->user()->role_name }}</div>
@@ -45,6 +49,7 @@
             <div class="sidebar-section-title">Modules</div>
             <ul class="sidebar-nav">
                 <li><a href="{{ route('profiles.index') }}" class="{{ request()->routeIs('profiles.*') ? 'active' : '' }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Profiling</a></li>
+                <li><a href="{{ route('files.home') }}" class="{{ request()->routeIs('files.*') ? 'active' : '' }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18"/><path d="M3 12h18"/><path d="M3 17h18"/></svg> Files</a></li>
                 <li><a href="#" class="opacity-50 pointer-events-none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Module A <small class="text-muted" style="font-size:0.65rem;margin-left:auto;">Soon</small></a></li>
                 <li><a href="#" class="opacity-50 pointer-events-none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Module B <small class="text-muted" style="font-size:0.65rem;margin-left:auto;">Soon</small></a></li>
                 <li><a href="#" class="opacity-50 pointer-events-none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Module C <small class="text-muted" style="font-size:0.65rem;margin-left:auto;">Soon</small></a></li>

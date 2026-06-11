@@ -43,6 +43,12 @@
 
     <div class="resume">
         <div class="resume-header">
+            @php $avatar = $profile->avatar ?? ($profile->user->avatar ?? null); @endphp
+            @if($avatar)
+                <div style="margin-bottom:1rem;">
+                    <img src="{{ asset('storage/' . $avatar) }}" alt="Photo" style="width:96px;height:96px;object-fit:cover;border-radius:12px;display:block;margin:0 auto 0.75rem;">
+                </div>
+            @endif
             <h1>{{ $profile->first_name }} {{ $profile->last_name }}</h1>
             @if($profile->title)<div class="title">{{ $profile->title }}</div>@endif
             <div class="contact">

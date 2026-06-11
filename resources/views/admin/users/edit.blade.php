@@ -19,7 +19,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.users.update', $user) }}">
+    <form method="POST" action="{{ route('admin.users.update', $user) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -41,6 +41,17 @@
         <div class="form-group">
             <label for="password">Password <small class="small-muted">(leave blank to keep current)</small></label>
             <input type="password" id="password" name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="avatar">Avatar</label>
+            @if($user->avatar)
+                <div class="d-flex gap-0.5 align-center mb-0.5">
+                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="User avatar" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">
+                    <label class="small-muted"><input type="checkbox" name="avatar_remove" value="1"> Remove avatar</label>
+                </div>
+            @endif
+            <input type="file" id="avatar" name="avatar" accept="image/*">
         </div>
 
         <div class="form-group">

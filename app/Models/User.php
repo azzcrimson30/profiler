@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * Represents an application user with a role-based access system.
  */
-#[Fillable(['name', 'username', 'email', 'password', 'role_id', 'is_admin'])]
+#[Fillable(['name', 'username', 'email', 'password', 'role_id', 'is_admin', 'avatar'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
