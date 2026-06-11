@@ -1,0 +1,103 @@
+/* ============================================
+   Auth & App Layout Styles
+   ============================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #2563eb; --primary-dark: #1d4ed8; --danger: #dc2626;
+    --success: #16a34a; --warning: #d97706;
+    --bg: #f8fafc; --surface: #ffffff; --text: #1e293b; --text-muted: #64748b;
+    --border: #e2e8f0; --radius: 10px;
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Navbar */
+.navbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.navbar-brand { font-size: 1.15rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+.navbar-brand:hover { text-decoration: none; }
+.navbar-nav { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+.navbar-nav a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+.navbar-nav a:hover { color: var(--primary); text-decoration: none; }
+.navbar-nav .btn-logout { background: none; border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: var(--radius); cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); font-family: inherit; }
+.navbar-nav .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
+
+/* Main Content */
+.main-content { flex: 1; padding: 2rem 0; }
+.page-header { margin-bottom: 2rem; }
+.page-header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; }
+.page-header p { color: var(--text-muted); margin-top: 0.25rem; }
+
+/* Cards */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; }
+
+/* Forms */
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text); }
+.form-group input, .form-group select { width: 100%; padding: 0.65rem 0.875rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s; background: var(--surface); }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.form-group .error { color: var(--danger); font-size: 0.8rem; margin-top: 0.3rem; }
+.form-check { display: flex; align-items: center; gap: 0.5rem; }
+.form-check input[type="checkbox"] { width: auto; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; font-family: inherit; text-decoration: none; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #b91c1c; text-decoration: none; }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg); text-decoration: none; }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+
+/* Alerts */
+.alert { padding: 0.875rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+.alert-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.alert-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.alert-info { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+
+/* Tables */
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.table th { font-weight: 600; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg); }
+.table tr:hover td { background: #f8fafc; }
+
+/* Badges */
+.badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.badge-admin { background: #faf5ff; color: #7c3aed; }
+.badge-user { background: #f0f9ff; color: #2563eb; }
+
+/* Actions */
+.actions { display: flex; gap: 0.5rem; }
+
+/* Search */
+.search-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+.search-bar input { flex: 1; padding: 0.5rem 0.875rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+.search-bar input:focus { outline: none; border-color: var(--primary); }
+
+/* Pagination */
+.pagination { display: flex; gap: 0.25rem; margin-top: 1.5rem; justify-content: center; }
+.pagination a, .pagination span { padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.85rem; }
+.pagination a { border: 1px solid var(--border); color: var(--text-muted); }
+.pagination a:hover { background: var(--bg); text-decoration: none; }
+.pagination .active span { background: var(--primary); color: #fff; }
+
+/* Auth */
+.auth-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.auth-card { width: 100%; max-width: 420px; }
+.auth-card .card { padding: 2.5rem; }
+.auth-card .auth-header { text-align: center; margin-bottom: 2rem; }
+.auth-card .auth-header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+.auth-card .auth-header p { color: var(--text-muted); font-size: 0.9rem; }
+.auth-footer { text-align: center; margin-top: 1.25rem; font-size: 0.875rem; color: var(--text-muted); }
+
+/* Footer */
+.footer { padding: 2rem; text-align: center; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+/* Responsive */
+@media (max-width: 768px) { .navbar-nav { gap: 0.75rem; } .table { font-size: 0.8rem; } }
